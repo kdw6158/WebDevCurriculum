@@ -1,0 +1,143 @@
+body {
+  text-align: center;
+}
+
+h1 {
+  color: #19ce60;
+  font-weight: bold;
+  font-size: 3em;
+}
+
+#search {
+  border-color: #19ce60;
+  border-style: solid;
+  width: 30em;
+  height: 3em;
+}
+
+header div {
+  display: flex;
+  margin: auto;
+  width: 50em;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  font-size: x-small;
+  text-align: center;
+  justify-content: center;
+}
+
+article {
+  display: block;
+  width: 30em;
+  background-color: aliceblue;
+  margin: auto;
+  padding-left: 3em;
+  padding-right: 3em;
+}
+
+article div {
+  text-align: start;
+}
+
+.main div:last-child {
+  font-size: smaller;
+}
+
+.weather > div:nth-child(1) {
+  display: flex;
+  text-align: start;
+  margin: 0.5em;
+}
+
+.weather > div:nth-child(1) > div:nth-child(2) {
+  font-size: x-small;
+  align-self: flex-end;
+}
+
+.weather_title > div {
+  display: inline-block;
+  background-color: #ffffff;
+  margin: 0.2em;
+}
+
+.weather > iframe {
+  width: 100%;
+  border-style: hidden;
+}
+
+.corona {
+  display: flex;
+  justify-content: space-around;
+}
+
+.adv2 button {
+  background-color: #ffffff;
+  color: cornflowerblue;
+  border-color: cornflowerblue;
+  border-radius: 0.3em;
+  height: 2.5em;
+}
+
+.pan > div {
+  display: flex;
+}
+
+/* .pan > div:nth-child(1) {
+  display: flexbox;
+} */
+
+.pan > div:nth-child(1) > div {
+  flex-grow: 1;
+}
+
+.pan > div:nth-child(1) > div:last-child {
+  text-align: end;
+  font-size: smaller;
+}
+
+.pan > div:nth-child(2) {
+  flex-wrap: wrap;
+}
+
+.pan > div:nth-child(2) > div {
+  width: 50%;
+}
+
+.notice {
+  text-align: start;
+}
+
+.notice > div {
+  display: inline-flex;
+}
+
+.notice > div:nth-child(1) {
+  border-style: solid;
+  border-width: 0.1em;
+  border-radius: 3em;
+  font-size: small;
+}
+
+footer > div {
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+
+footer div {
+  margin: 0.2em;
+}
+
+footer > div > div:nth-child(2) {
+  border-style: solid;
+  border-left-color: lightslategray;
+  border-right-color: lightslategray;
+  border-width: 0.1em;
+  border-top-width: 0em;
+  border-bottom-width: 0em;
+}
+
+footer > div:last-child {
+  font-size: larger;
+  font-weight: bolder;
+}
