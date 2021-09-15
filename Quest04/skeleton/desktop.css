@@ -1,1 +1,11 @@
 /* TODO: 자유롭게 바탕화면 시스템의 CSS를 만들어 보세요! */
+div {
+  height: 4em;
+  width: 3.5em;
+  text-align: center;
+  display: inline-block;
+  line-height: 4em;
+  border-style: solid;
+  border-width: 0.1px;
+  margin: 5px;
+}

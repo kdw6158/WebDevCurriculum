@@ -1,18 +1,90 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<link rel="stylesheet" href="./desktop.css">
-		<script src="./desktop.js"></script>
-	</head>
-	<body>
-		<section class="desktop">
-		</section>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./desktop.css" />
+    <script src="./desktop.js"></script>
+  </head>
+  <body>
+    <section class="desktop"></section>
 
-		<script>
-			let myDesktop = new Desktop(
-				/* TODO: myDesktop 인스턴스의 생성자의 변수로 무엇이 들어가야 할까요? */
-			);
-		</script>
-	</body>
+    <script>
+      let myDesktop = new Desktop(prompt(), prompt());
+      /* TODO: myDesktop 인스턴스의 생성자의 변수로 무엇이 들어가야 할까요? */
+      create_icon(myDesktop.get_icon());
+      create_folder(myDesktop.get_folder());
+
+      function create_icon(iconNum) {
+        for (let i = 0; i < iconNum; i++) {
+          let icon = document.createElement('div');
+          icon.appendChild(document.createTextNode(`icon${i + 1}`));
+          icon.setAttribute('class', 'icon');
+          document.querySelector('.desktop').append(icon);
+        }
+      }
+
+      function create_folder(folderNum) {
+        for (let i = 0; i < folderNum; i++) {
+          let folder = document.createElement('div');
+          folder.appendChild(document.createTextNode(`folder${i + 1}`));
+          folder.setAttribute('class', 'folder');
+          document.querySelector('.desktop').append(folder);
+        }
+      }
+
+      let file = document.querySelectorAll('div');
+
+      for (let item of file) {
+        // item.addEventListener('mousedown', function (event) {
+        item.onmousedown = function (event) {
+          // 드래그 하면 움직이게
+
+          let shiftX = event.clientX - item.getBoundingClientRect().left;
+          let shiftY = event.clientY - item.getBoundingClientRect().top;
+
+          // console.log(shiftX, shiftY);
+
+          this.style.position = 'absolute';
+          this.style.zIndex = 1000;
+
+          document.body.append(this);
+
+          moveAt(event.pageX, event.pageY);
+
+          console.log(event.pageX, event.pageY);
+
+          function moveAt(pageX, pageY) {
+            item.style.left = pageX - shiftX + 'px';
+            item.style.top = pageY - shiftY + 'px';
+          }
+
+          function mouseMove(event) {
+            moveAt(event.pageX, event.pageY);
+            alert(`event.pageX : ${event.pageX}, event.pageY : ${event.pageY}`);
+          }
+
+          document.body.addEventListner('mousemove', mouseMove);
+
+          item.addEventListener('mouseup', mouseUp());
+
+          item.onmouseup = function () {
+            document.body.removeEventListener('mousemove', mouseMove);
+            item.onmouseup = null;
+          };
+        };
+
+        item.ondragStart = function () {
+          return false;
+        };
+      }
+
+      let folders = document.querySelectorAll('.folder');
+      for (let item of folders) {
+        item.addEventListener('dblclick', function () {
+          // 창으로 열려야 함
+          this.style.backgroundColor = 'white';
+        });
+      }
+    </script>
+  </body>
 </html>

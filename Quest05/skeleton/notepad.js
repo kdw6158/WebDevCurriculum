@@ -1,3 +1,7 @@
 class Notepad {
-	/* TODO: 그 외에 또 어떤 클래스와 메소드가 정의되어야 할까요? */
-};
+  /* TODO: 그 외에 또 어떤 클래스와 메소드가 정의되어야 할까요? */
+  constructor(name, msg) {
+    this.name = name;
+    this.msg = msg;
+  }
+}
