@@ -7,15 +7,115 @@
   </head>
   <body>
     <!-- TODO: 이 곳을 채워 클라이언트를 만들어 보세요 -->
-    <div>header</div>
     <div class="container">
-      <div class="list">Text List</div>
-      <div class="tab">tab - title1</div>
-      <div class="contents">contents</div>
-      <div class="user">save button</div>
+      <div class="header">
+        <p>Notepad</p>
+        <div>
+          <button id="save">저장</button>
+          <button id="save_to">...</button>
+        </div>
+      </div>
+      <div class="list">
+        <div>
+          <div>Text List</div>
+          <div><button id="btn_new">+</button></div>
+        </div>
+        <ul></ul>
+      </div>
+      <div class="tab">
+        <ul class="tab_list"></ul>
+      </div>
+      <div class="contents">
+        <textarea name="" id="area"></textarea>
+      </div>
     </div>
+
+    <input type="checkbox" name="" id="" checked />
+
     <script>
-      let notepad = new Notepad();
+      // let notepad = new Notepad(
+      listup();
+
+      let btn_save = document.querySelector('#save');
+
+      let tab_list = [];
+
+      btn_save.addEventListener('click', function () {
+        let msg = document.querySelector('#area').value;
+
+        localStorage.setItem(title, JSON.stringify(msg));
+      });
+
+      function listup() {
+        for (let i = 0; i < localStorage.length; i++) {
+          console.log(`key ${i}: ${localStorage.key(i)}`);
+          let li = document.createElement('li');
+          li.append(document.createTextNode('> ' + localStorage.key(i)));
+          document.querySelector('ul').appendChild(li);
+        }
+      }
+
+      for (let list of document.querySelectorAll('li')) {
+        list.addEventListener('click', function () {
+          localStorage.getItem(this.innerText);
+
+          list.classList.add('selected');
+
+          tab_list.push(this.innerText.replace('> ', ''));
+
+          for (let k of document.querySelectorAll('.tab_list li')) {
+            k.remove();
+          }
+
+          tab_up();
+        });
+      }
+
+      let btn_new = document.querySelector('#btn_new');
+
+      btn_new.addEventListener('click', function () {
+        let user_title = prompt();
+        localStorage.setItem(user_title, JSON.stringify(''));
+        for (let l of document.querySelectorAll('li')) {
+          l.remove();
+        }
+        listup();
+      });
+
+      function tab_up() {
+        for (tab of tab_list) {
+          let title = document.createElement('li');
+          let close = document.createElement('input');
+          close.setAttribute('type', 'button');
+          close.setAttribute('onclick', 'closed(name, event)');
+          close.setAttribute('name', tab);
+          close.setAttribute('value', 'x');
+          title.append(document.createTextNode(tab));
+          title.append(close);
+          title.setAttribute('onclick', 'clk_tab(this.innerText)');
+
+          document.querySelector('.tab_list').appendChild(title);
+        }
+      }
+
+      function closed(text, event) {
+        event.stopPropagation();
+
+        // console.log(tab_list, text);
+        // alert(tab_list.indexOf(text));
+        tab_list.splice(tab_list.indexOf(text), 1);
+
+        for (let k of document.querySelectorAll('.tab_list li')) {
+          k.remove();
+        }
+
+        tab_up();
+      }
+
+      function clk_tab(name) {
+        let msg = JSON.parse(localStorage.getItem(name));
+        document.querySelector('#area').value = msg;
+      }
     </script>
   </body>
 </html>
