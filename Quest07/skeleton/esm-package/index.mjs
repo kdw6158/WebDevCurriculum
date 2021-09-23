@@ -13,3 +13,5 @@ const esmUtilFunction = (str) => {
 };
 
 // TODO: 다른 패키지가 EsmUtilClass와 esmUtilFunction를 가져다 쓰려면 어떻게 해야 할까요?
+
+export { EsmUtilClass, esmUtilFunction };
