@@ -17,18 +17,36 @@
         <div>
           <div>Text List</div>
         </div>
-        <ul></ul>
+        <ul id="title_list"></ul>
       </div>
       <div class="tab">
         <ul class="tab_list"></ul>
       </div>
       <div class="contents">
-        <textarea name="" id="area"></textarea>
+        <!-- <textarea name="" id="area"></textarea> -->
       </div>
     </div>
 
     <script>
-      // let notepad = new Notepad()
+      let keys = [];
+      localKeys(keys);
+      listup();
+
+      for (let list of document.querySelectorAll('#title_list Button')) {
+        list.addEventListener('click', function () {
+          if (tabs.filter((tab) => tab == this.innerHTML) == false) {
+            tabs.push(list.innerHTML);
+            console.log(tabs);
+            for (let child of document.querySelectorAll('.tab_list li')) {
+              child.remove();
+            }
+            for (let child of document.querySelectorAll('.contents textarea')) {
+              child.remove();
+            }
+            tab_up(tabs);
+          }
+        });
+      }
     </script>
   </body>
 </html>
