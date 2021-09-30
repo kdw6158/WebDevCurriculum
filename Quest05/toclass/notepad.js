@@ -1,143 +1,83 @@
+const one = (ele) => document.querySelector(ele);
+const all = (ele) => document.querySelectorAll(ele);
+const create = (name, attr) => {
+  const ele = document.createElement(name);
+  for (const key in attr) {
+    const attrValue = attr[key];
+    switch (key) {
+      case 'html': ele.innerHTML = attrValue;
+        break;
+      case 'event': for (const event in attrValue) ele.addEventListener(event, attrValue[event]);
+        break;
+      default: ele.setAttribute(key, attrValue);
+        break;
+    }
+  }
+  return ele
+}
+
+class Ajax{
+  static async get(url) {
+    const json = await fetch(url).then(res => res.json())
+    if (!json.success) throw json.err;
+    return json.data;
+  }
+  static async set(url, data, method = "post") {
+    const headers = { 'Content-Type': 'application/json' };
+    const params = { method, headers, body: JSON.stringify(data) };
+    const json = await fetch(url, params).then(res => res.json());
+    if (!json.success) throw json.err;
+    return json.data;
+  }
+}
+
+class Note{
+  async getFile() {
+    return await Ajax.get('/file');
+  }
+  async setFile(file) {
+    await Ajax.set('/file', { file });
+  }
+  async getTab(parent) {
+    return await Ajax.get('/tab' + parent) || [];
+  }
+  async addTab(tab, parent) {
+    await Ajax.set('/tab' + parent, { tab });
+  }
+}
+
 class Notepad {
   /* TODO: 그 외에 또 어떤 클래스와 메소드가 정의되어야 할까요? */
-  constructor() {}
-
-  getTitle() {
-    return this.title;
+  constructor(note) {
+    this.note = note;
+    this.fileInput = one('.file-input');
+    this.fileList = one('.file-list');
+    this.fileUpdate = ;
+    this.tabList = one('.tab-list');
+    this.tabClose = 
+    this.fileInput.onkeyup = this.addFile();
   }
 
-  setTitle(newTitle) {
-    this.title = newTitle;
+  addFile() {
+    const $this = this;
+    return async (e) => {
+      if (e.keyCode === 13) {
+        const file = await $this.note.getFile();
+        file.push({ name: e.target.value });
+        await $this.note.setFile(file);
+        $this.fileListup(file);
+        e.target.value=''
+      }
+    }
   }
 
-  getMsg() {
-    return this.msg;
+  fileListup(file) {
+    const ul = create('ul');
+    file.forEach((v, k) => {
+      ul.appendChild(create('li', {html: v.name, event: {click: this.tabRender(v.name, k)}}))
+    })
+    this.fileList.innerHTML = ''
+    this.fileList.appendChild(ul);
   }
 
-  setMsg(newMsg) {
-    this.msg = newMsg;
-  }
-}
-
-let tabs = [];
-
-function localKeys(keys) {
-  for (let i = 0; i < localStorage.length; i++) {
-    keys.push(localStorage.key(i));
-  }
-}
-
-function btn_new() {
-  let li_button = document.createElement('Button');
-  let ul_li = document.createElement('li');
-  ul_li.appendChild(li_button);
-  let title = prompt('title 입력');
-  li_button.append(document.createTextNode(title));
-
-  if (keys.filter((key) => key == title) == false) {
-    localStorage.setItem(title, '');
-    document.querySelector('#title_list').appendChild(ul_li);
-    document.querySelectorAll('#title_list li').forEach((element) => {
-      element.remove();
-    });
-    listup();
-  }
-}
-
-function btn_save() {
-  let currentArea = document.querySelector('.tab_selected');
-
-  localStorage.setItem(currentArea.getAttribute('id'), currentArea.value);
-}
-
-function btn_save_to() {
-  let currentArea = document.querySelector('.tab_selected');
-  btn_new();
-  localStorage.setItem(localStorage.key(localStorage.length), currentArea.value);
-  localStorage.removeItem(currentArea.getAttribute('id'));
-}
-
-function listup() {
-  for (let i = 0; i < localStorage.length; i++) {
-    // console.log(`key ${i}: ${localStorage.key(i)}`);
-    let li = document.createElement('li');
-    let list = li.appendChild(document.createElement('Button'));
-    list.appendChild(document.createTextNode(localStorage.key(i)));
-    document.querySelector('ul').appendChild(li);
-  }
-}
-
-// for (let list of document.querySelectorAll('#title_list Button')) {
-//   list.addEventListener('click', function () {
-//     alert('!!');
-//     if (tabs.filter((tab) => tab == this.innerHTML)) {
-//       tabs.push(list.innerHTML);
-//       console.log(tabs);
-//       for (let child of document.querySelectorAll('.tab_list li')) {
-//         child.remove();
-//       }
-//       for (let child of document.querySelectorAll('.contents textarea')) {
-//         child.remove();
-//       }
-//       tab_up(tabs);
-//     }
-//   });
-// }
-
-function tab_up(tabs) {
-  for (let tab of tabs) {
-    let title = document.createElement('li');
-    title.append(document.createTextNode(tab));
-    title.setAttribute('onclick', 'clk_tab(this)');
-
-    let close = document.createElement('Button');
-    close.setAttribute('onclick', 'closed(name, event)');
-    close.setAttribute('name', tab);
-    close.setAttribute('value', 'x');
-
-    title.append(close);
-
-    document.querySelector('.tab_list').appendChild(title);
-
-    let container = document.createElement('textarea');
-
-    container.setAttribute('id', tab);
-    container.appendChild(document.createTextNode(localStorage.getItem(tab)));
-
-    document.querySelectorAll('textarea').forEach((element) => {
-      element.setAttribute('class', 'tab_unsel');
-    });
-
-    container.setAttribute('class', 'tab_selected');
-
-    document.querySelector('.contents').appendChild(container);
-  }
-}
-
-function closed(text, event) {
-  // 버블링 제거
-  event.stopPropagation();
-
-  if (tabs.filter((tab) => tab == text)) {
-    let current_tab_index = tabs.indexOf(text);
-    console.log(current_tab_index);
-    tabs.splice(current_tab_index, 1);
-    console.log(tabs);
-
-    document.querySelectorAll('.tab_list li').forEach((element) => {
-      element.remove();
-    });
-    tab_up(tabs);
-  }
-}
-
-function clk_tab(name) {
-  let this_tab = document.getElementById(name.innerText);
-  console.log(this_tab);
-
-  document.querySelectorAll('textarea').forEach((element) => {
-    element.setAttribute('class', 'tab_unsel');
-  });
-
-  this_tab.setAttribute('class', 'tab_selected');
 }

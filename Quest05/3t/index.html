@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="notepad.js"></script>
+  </head>
+  <body>
+    <!-- TODO: 이 곳을 채워 클라이언트를 만들어 보세요 -->
+    <div class="container">
+      <div class="header">
+        <button id="new">new</button>
+        <button id="save">save</button>
+        <button id="save_as">save as</button>
+      </div>
+      <div class="list">
+        <div>
+          <div>File List</div>
+        </div>
+        <ul id="title_list"></ul>
+      </div>
+      <div class="tab">
+        <ul class="tab_list"></ul>
+      </div>
+      <div class="contents"></div>
+    </div>
+
+    <script>
+      fileListUp();
+      document.getElementById('new').addEventListener('click', createFile);
+      document.getElementById('save').addEventListener('click', saveFile);
+      document.getElementById('save_as').addEventListener('click', saveAs);
+    </script>
+  </body>
+</html>
