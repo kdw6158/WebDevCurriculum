@@ -1,0 +1,15 @@
+table {
+  margin: auto;
+}
+
+/* tr {
+  height: 30px;
+} */
+
+td:last-child {
+  text-align: center;
+}
+
+tr:not(:last-child) {
+  text-align: right;
+}
