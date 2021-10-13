@@ -1,4 +1,3 @@
-// @ts-nocheck
 // element select
 const one = (ele) => document.querySelector(ele);
 // elements select all

@@ -1,0 +1,36 @@
+{
+  "list": [
+    {
+      "fileName": "testName1",
+      "fileContent": "testCon1"
+    },
+    {
+      "fileName": "testName2",
+      "fileContent": "testCon2"
+    },
+    {
+      "fileName": "testName3",
+      "fileContent": "testCon3"
+    }
+  ],
+  "tab": [
+    {
+      "fileName": "testName1",
+      "fileContent": "testCont1",
+      "saveState": "save",
+      "openState": "current"
+    },
+    {
+      "fileName": "testName2",
+      "fileContent": "testCon2",
+      "saveState": "save",
+      "openState": "open"
+    },
+    {
+      "fileName": "testName3",
+      "fileContent": "testCon3",
+      "saveState": "save",
+      "openState": "open"
+    }
+  ]
+}

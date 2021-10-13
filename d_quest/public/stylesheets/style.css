@@ -1,0 +1,150 @@
+div {
+  /* TODO: 필요한 CSS를 채워넣어 보세요! */
+  border-width: 1px;
+  text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: 50px 40px 400px 150px;
+}
+
+.header {
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 1;
+  display: flex;
+  align-items: center;
+}
+
+.header > button {
+  display: inline-block;
+  text-align: center;
+  height: 2em;
+  width: 5em;
+}
+
+.list {
+  grid-column: 1 / span 1;
+  grid-row: 2 / span 3;
+  border-right-style: solid;
+  border-right-style: double;
+}
+
+.list > div {
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.list div {
+  display: inline-flex;
+  border-width: 0em;
+}
+
+.list button {
+  margin-inline: 5px;
+  width: 90%;
+  border: 0em;
+  text-align: start;
+  background: none;
+}
+
+.list ul {
+  padding-left: 10px;
+}
+
+.list li {
+  text-align: left;
+  list-style: none;
+  margin-top: 2px;
+  margin-bottom: 2px;
+
+  user-select: none;
+}
+
+.tab {
+  grid-column: 2 / span 1;
+  grid-row: 2 / span 1;
+
+  display: flex;
+  flex-direction: row;
+
+  overflow: scroll;
+
+  max-width: 97%;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.tab ul {
+  display: flex;
+  flex-direction: row;
+  margin: 5px;
+  margin-bottom: 0px;
+  user-select: none;
+  overflow: -moz-hidden-unscrollable;
+}
+
+.tab li {
+  width: 150px;
+  margin-left: 1px;
+  margin-right: 1px;
+  background-color: lightgray;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  text-align-last: left;
+  line-height: 2;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  /* } */
+
+  /* .tab li.preTab,
+.tab li.currentTab { */
+  list-style: circle;
+  list-style-position: inside;
+}
+
+.tab li.current {
+  background-color: deepskyblue;
+}
+
+.tab > ul > li.unsaved {
+  list-style: disc;
+  list-style-position: inside;
+}
+
+.tab_list {
+  padding: 0%;
+}
+
+.tab_list button {
+  height: 16px;
+  right: 5px;
+  z-index: 1;
+}
+
+#contents {
+  grid-column: 2 / span 1;
+  grid-row: 3 / span 2;
+}
+
+#contents textarea {
+  width: 97%;
+  height: 95%;
+  padding: 5px;
+  resize: none;
+}
+
+.unsel_editBox {
+  display: none;
+}
+
+.selected_editBox {
+  display: block;
+}

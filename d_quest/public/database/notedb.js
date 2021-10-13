@@ -1,5 +1,6 @@
 const fs = require('fs');
-const path = __dirname + '/datas.json';
+const path = __dirname + '/notedb.json';
+
 const getData = () =>
   new Promise((resolve, reject) => {
     fs.readFile(path, 'utf-8', (err, data) => {
@@ -9,7 +10,7 @@ const getData = () =>
 
 const setData = (data) =>
   new Promise((resolve, reject) => {
-    fs.writeFile(path, JSON.stringify(data), 'utf-8', (err) => {
+    fs.writeFile(path, JSON.stringify(data), (err) => {
       err ? reject(err) : resolve();
     });
   });
